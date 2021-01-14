@@ -74,12 +74,6 @@ Feature: Foreign Exchange Rate functionality for future date
     When User perform GET operation for "2021-02-20"                                 # LatestExchangeRateSteps.user_perform_GET_operation_for(String)
     Then It should get 200 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
     And Verify that response should get for current date                             # LatestExchangeRateSteps.verifyThatResponseShouldGetForCurrentDate()
-      org.junit.ComparisonFailure: expected:<2021-01-1[3]> but was:<2021-01-1[4]>
-      	at org.junit.Assert.assertEquals(Assert.java:117)
-      	at org.junit.Assert.assertEquals(Assert.java:146)
-      	at steps.LatestExchangeRateSteps.verifyThatResponseShouldGetForCurrentDate(LatestExchangeRateSteps.java:83)
-      	at ✽.And Verify that response should get for current date(getForeignExchangeRatesForFutureDate.feature:7)
-
 Feature: Foreign Exchange Rate functionality for specific date
 
   Scenario Outline: Verify Foreign Exchange rates for Specific date                  # getForeignExchangeRatesForSpecificDate.feature:3

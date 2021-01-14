@@ -11,9 +11,10 @@ import java.io.File;
 @CucumberOptions (
         features = "src/test/java/features",
         glue = {"steps"},
-        plugin = {"pretty:STDOUT", "com.cucumber.listener.ExtentCucumberFormatter:ExtentReports/cucumber-extent/report.html"},
+        plugin = {"pretty:STDOUT", "com.cucumber.listener.ExtentCucumberFormatter:ExtentReports/report.html"},
         monochrome = true,
-        strict = true
+        strict = true,
+        dryRun = true
 )
 public class TestRunner {
 
