@@ -1,0 +1,155 @@
+Feature: Foreign Exchange Rate functionality with invalid api
+
+  Scenario: Verify Foreign Exchange rates for invalid url                            # getForeignExchangeRateForInvalidURL.feature:3
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/" # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for ""                                           # LatestExchangeRateSteps.user_perform_GET_operation_for(String)
+    Then It should get 400 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
+    And Verify error message "time data 'api' does not match format '%Y-%m-%d'"      # LatestExchangeRateSteps.verifyErrorMessage(String)
+Feature: Foreign Exchange Rate functionality with Base
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Base                   # getForeignExchangeRateForSpecificDateWithBase.feature:3
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/"
+    When User perform GET operation for "<Date>" along with specific "<base>"
+    Then It should get 200 status code
+
+    Examples: 
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Base                   # getForeignExchangeRateForSpecificDateWithBase.feature:10
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/" # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "2021-01-13" along with specific "USD"       # LatestExchangeRateSteps.userPerformGETOperationForAlongWithSpecific(String,String)
+    Then It should get 200 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Base                   # getForeignExchangeRateForSpecificDateWithBase.feature:11
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/" # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "2021-01-13" along with specific "GBP"       # LatestExchangeRateSteps.userPerformGETOperationForAlongWithSpecific(String,String)
+    Then It should get 200 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
+Feature: Foreign Exchange Rate functionality with Symbols
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Symbols                # getForeignExchangeRateForSpecificDateWithSymbols.feature:3
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/"
+    When User perform GET operation for "<Date>" along with specific "<symbols>"
+    Then It should get 200 status code
+
+    Examples: 
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Symbols                # getForeignExchangeRateForSpecificDateWithSymbols.feature:10
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/" # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "2021-01-13" along with specific "USD"       # LatestExchangeRateSteps.userPerformGETOperationForAlongWithSpecific(String,String)
+    Then It should get 200 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Symbols                # getForeignExchangeRateForSpecificDateWithSymbols.feature:11
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/" # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "2021-01-13" along with specific "USD,GBP"   # LatestExchangeRateSteps.userPerformGETOperationForAlongWithSpecific(String,String)
+    Then It should get 200 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
+Feature: Foreign Exchange Rate functionality with Base and Symbols
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Symbols and Base                # getForeignExchangeRateForSpecificDateWithSymbolsAndBase.feature:3
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/"
+    When User perform GET operation for "<Date>" along with specific "<base>" and "<symbols>"
+    Then It should get 200 status code
+
+    Examples: 
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Symbols and Base           # getForeignExchangeRateForSpecificDateWithSymbolsAndBase.feature:10
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/"     # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "2021-01-13" along with specific "USD" and "USD" # LatestExchangeRateSteps.userPerformGETOperationForAlongWithSpecificAnd(String,String,String)
+    Then It should get 200 status code                                                   # LatestExchangeRateSteps.it_should_get_status_code(int)
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Symbols and Base           # getForeignExchangeRateForSpecificDateWithSymbolsAndBase.feature:11
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/"     # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "2021-01-13" along with specific "GBP" and "USD" # LatestExchangeRateSteps.userPerformGETOperationForAlongWithSpecificAnd(String,String,String)
+    Then It should get 200 status code                                                   # LatestExchangeRateSteps.it_should_get_status_code(int)
+Feature: Foreign Exchange Rate functionality for future date
+
+  Scenario Outline: Verify Foreign Exchange rates for Specific date                  # getForeignExchangeRatesForFutureDate.feature:3
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/"
+    When User perform GET operation for "<Date>"
+    Then It should get 200 status code
+    And Verify that response should get for current date
+
+    Examples: 
+
+  Scenario Outline: Verify Foreign Exchange rates for Specific date                  # getForeignExchangeRatesForFutureDate.feature:11
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/" # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "2021-02-20"                                 # LatestExchangeRateSteps.user_perform_GET_operation_for(String)
+    Then It should get 200 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
+    And Verify that response should get for current date                             # LatestExchangeRateSteps.verifyThatResponseShouldGetForCurrentDate()
+      org.junit.ComparisonFailure: expected:<2021-01-1[3]> but was:<2021-01-1[4]>
+      	at org.junit.Assert.assertEquals(Assert.java:117)
+      	at org.junit.Assert.assertEquals(Assert.java:146)
+      	at steps.LatestExchangeRateSteps.verifyThatResponseShouldGetForCurrentDate(LatestExchangeRateSteps.java:83)
+      	at ✽.And Verify that response should get for current date(getForeignExchangeRatesForFutureDate.feature:7)
+
+Feature: Foreign Exchange Rate functionality for specific date
+
+  Scenario Outline: Verify Foreign Exchange rates for Specific date                  # getForeignExchangeRatesForSpecificDate.feature:3
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/"
+    When User perform GET operation for "<Date>"
+    Then It should get 200 status code
+
+    Examples: 
+
+  Scenario Outline: Verify Foreign Exchange rates for Specific date                  # getForeignExchangeRatesForSpecificDate.feature:10
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/" # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "2010-01-12"                                 # LatestExchangeRateSteps.user_perform_GET_operation_for(String)
+    Then It should get 200 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
+Feature: Latest Foreign Exchange Rate functionality
+  
+  Scenario : Verify Latest Foreign Exchange rates
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/"
+    When User perform GET operation for "latest"
+    Then It should get 200 status code
+Feature: Latest Foreign Exchange Rate functionality with Base
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Base                   # getLatestForeignExchangeRateWithBase.feature:3
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/"
+    When User perform GET operation for "<Date>" along with specific "<base>"
+    Then It should get 200 status code
+
+    Examples: 
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Base                   # getLatestForeignExchangeRateWithBase.feature:10
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/" # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "latest" along with specific "USD"           # LatestExchangeRateSteps.userPerformGETOperationForAlongWithSpecific(String,String)
+    Then It should get 200 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Base                   # getLatestForeignExchangeRateWithBase.feature:11
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/" # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "latest" along with specific "GBP"           # LatestExchangeRateSteps.userPerformGETOperationForAlongWithSpecific(String,String)
+    Then It should get 200 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
+Feature: Latest Foreign Exchange Rate functionality with Symbols
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Symbols                # getLatestForeignExchangeRateWithSymbols.feature:3
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/"
+    When User perform GET operation for "<Date>" along with specific "<symbols>"
+    Then It should get 200 status code
+
+    Examples: 
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Symbols                # getLatestForeignExchangeRateWithSymbols.feature:10
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/" # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "latest" along with specific "USD"           # LatestExchangeRateSteps.userPerformGETOperationForAlongWithSpecific(String,String)
+    Then It should get 200 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Symbols                # getLatestForeignExchangeRateWithSymbols.feature:11
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/" # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "latest" along with specific "USD,GBP"       # LatestExchangeRateSteps.userPerformGETOperationForAlongWithSpecific(String,String)
+    Then It should get 200 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
+Feature: Latest Foreign Exchange Rate functionality with Base and Symbols
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Symbols and Base                # getLatestForeignExchangeRateWithSymbolsAndBase.feature:3
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/"
+    When User perform GET operation for "<Date>" along with specific "<base>" and "<symbols>"
+    Then It should get 200 status code
+
+    Examples: 
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Symbols and Base       # getLatestForeignExchangeRateWithSymbolsAndBase.feature:10
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/" # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "latest" along with specific "USD" and "USD" # LatestExchangeRateSteps.userPerformGETOperationForAlongWithSpecificAnd(String,String,String)
+    Then It should get 200 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
+
+  Scenario Outline: Verify Latest Foreign Exchange rates with Symbols and Base       # getLatestForeignExchangeRateWithSymbolsAndBase.feature:11
+    Given Rates API for Latest Foreign Exchange rates "https://api.ratesapi.io/api/" # LatestExchangeRateSteps.Rates_API_for_Latest_Foreign_Exchange_rates(String)
+    When User perform GET operation for "latest" along with specific "GBP" and "USD" # LatestExchangeRateSteps.userPerformGETOperationForAlongWithSpecificAnd(String,String,String)
+    Then It should get 200 status code                                               # LatestExchangeRateSteps.it_should_get_status_code(int)
